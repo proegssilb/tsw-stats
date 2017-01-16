@@ -15,7 +15,7 @@ class AttackType(Base):
     attacker = Column(String(64))
     victim = Column(String(64))
     swingtype = Column(SMALLINT)
-    attackType = Column('type', String(64))
+    attacktype = Column('type', String(64))
     starttime = Column(TIMESTAMP)
     endtime = Column(TIMESTAMP)
     duration = Column(Integer)
@@ -48,8 +48,22 @@ class AttackType(Base):
     aegismismatchperc = Column(String(32))
     attackTypeId = Column('attacktypeid', BigInteger, primary_key=True)
 
+    # Relationships
+    __swingJoinCond = " & ".join(["(AttackType.encid == Swing.encid)",
+                                 " | ".join([
+                                     "(AttackType.attacker == Swing.attackerName)",
+                                     "(AttackType.victim == Swing.victimName)"
+                                 ]),
+                                 "(Swing.attacktype == AttackType.attacktype)"
+                               ])
+    swings = relationship('Swing',
+                          backref='attackSummary',
+                          primaryjoin=__swingJoinCond,
+                          foreign_keys='Swing.encid, Swing.attackerName, ' + \
+                          'Swing.victimName, Swing.attacktype')
+
     # Methods
     def __repr__(self):
         return "<AttackType {!r} - {!r} - {!r}>".format(self.encounter,
                                                         self.attacker,
-                                                        self.attackType)
+                                                        self.attacktype)

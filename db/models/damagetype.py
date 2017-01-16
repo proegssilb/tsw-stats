@@ -46,6 +46,19 @@ class DamageType(Base):
     aegismismatchperc = Column(String(32))
     damagetypeid = Column(BigInteger, primary_key=True)
 
+    # Relationships
+    #attackTypeJoinCond = "and_({})".format(", ".join(
+    #    "AttackType.encid==DamageType.encid",
+    #    "or_(DamageType.combatant==AttackType.attacker," + \
+    #        "DamageType.combatant==AttackType.victim)",
+    #    # TODO: DamageType.grouping contains AttackType.swingtype
+    #    ))
+    #attackTypes = relationship('AttackType',
+    #                           backref='damageCategory',
+    #                           primaryjoin=attackTypeJoinCond,
+    #                           foreign_keys='AttackType.encid')
+    
+
     # Methods
     def __repr__(self):
         return "<DamageType {!r} - {!r} - {!r}>".format(self.encounter,

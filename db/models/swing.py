@@ -11,11 +11,11 @@ class Swing(Base):
     # Columns
     encid = Column(CHAR(8))
     stime = Column(TIMESTAMP)
-    attacker = Column(String(64))
+    attackerName = Column('attacker', String(64))
     swingtype = Column(SMALLINT)
     attacktype = Column(String(64))
     damagetype = Column(String(64))
-    victim = Column(String(64))
+    victimName = Column('victim', String(64))
     damage = Column(BigInteger)
     damagestring = Column(String(128))
     critical = Column(CHAR(1))
@@ -29,4 +29,3 @@ class Swing(Base):
                                                          self.attacker,
                                                          self.victim,
                                                          self.damage)
-        

@@ -40,6 +40,19 @@ class Combatant(Base):
     aegisdmg = Column(Integer)
     combatantid = Column(BigInteger, primary_key=True)
 
+    # Relationships
+    attacks = relationship('Swing',
+                           backref='attacker',
+                           primaryjoin="and_(Swing.encid==Combatant.encid," + \
+                                " Swing.attackerName==Combatant.name)",
+                           foreign_keys='Swing.encid, Swing.attackerName')
+
+    hits = relationship('Swing',
+                        backref='victim',
+                        primaryjoin="and_(Swing.encid==Combatant.encid, " + \
+                             "Swing.victimName==Combatant.name)",
+                        foreign_keys='Swing.encid, Swing.victimName')
+
     def __repr__(self):
         return "<Combatant {!r} - {!r} -  Ally: {!r}>" \
             .format(self.encounter, self.name, self.ally)
