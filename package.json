@@ -1,0 +1,17 @@
+{
+  "name": "tsw-stats",
+  "version": "1.0.0",
+  "description": "A python-based web server providing statistics on TSW encounters logged to a database.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "David Bliss",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "copyfiles": "^1.0.0"
+  },
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.1.1"
+  }
+}
