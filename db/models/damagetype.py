@@ -1,10 +1,15 @@
 from .sacommon import Base
-from sqlalchemy import Column, BigInteger, String, CHAR, Integer, SMALLINT
+from sqlalchemy import Column, BigInteger, String, CHAR, Integer
 from sqlalchemy import TIMESTAMP, Numeric
 from sqlalchemy.dialects.postgresql import DOUBLE_PRECISION
-from sqlalchemy.orm import relationship
+# from sqlalchemy.orm import relationship # We'll be needing this soon.
 
-__all__ = ['DamageType']
+__all__ = ['DamageType', '__author__', '__copyright__', '__license__',
+           '__version__']
+__author__ = "David Bliss"
+__copyright__ = "Copyright (C) 2017 David Bliss"
+__license__ = "Apache-2.0"
+__version__ = "1.0"
 
 
 class DamageType(Base):
@@ -47,17 +52,16 @@ class DamageType(Base):
     damagetypeid = Column(BigInteger, primary_key=True)
 
     # Relationships
-    #attackTypeJoinCond = "and_({})".format(", ".join(
+    # attackTypeJoinCond = "and_({})".format(", ".join(
     #    "AttackType.encid==DamageType.encid",
     #    "or_(DamageType.combatant==AttackType.attacker," + \
     #        "DamageType.combatant==AttackType.victim)",
     #    # TODO: DamageType.grouping contains AttackType.swingtype
     #    ))
-    #attackTypes = relationship('AttackType',
+    # attackTypes = relationship('AttackType',
     #                           backref='damageCategory',
     #                           primaryjoin=attackTypeJoinCond,
     #                           foreign_keys='AttackType.encid')
-    
 
     # Methods
     def __repr__(self):

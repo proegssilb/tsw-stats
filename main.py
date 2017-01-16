@@ -3,7 +3,9 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from getpass import getpass
 
-engine = create_engine('postgresql://postgres:{}@localhost/ACT'.format(getpass()))
+engine = create_engine(
+    'postgresql://postgres:{}@localhost/ACT'.format(getpass())
+    )
 Session = sessionmaker(bind=engine)
 sess = Session()
 print(repr(sess.query(db.Encounter).first()))

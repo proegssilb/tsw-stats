@@ -4,7 +4,12 @@ from sqlalchemy import TIMESTAMP, Numeric
 from sqlalchemy.dialects.postgresql import DOUBLE_PRECISION
 from sqlalchemy.orm import relationship
 
-__all__ = ['AttackType']
+__all__ = ['AttackType', '__author__', '__copyright__', '__license__',
+           '__version__']
+__author__ = "David Bliss"
+__copyright__ = "Copyright (C) 2017 David Bliss"
+__license__ = "Apache-2.0"
+__version__ = "1.0"
 
 
 class AttackType(Base):
@@ -49,17 +54,18 @@ class AttackType(Base):
     attackTypeId = Column('attacktypeid', BigInteger, primary_key=True)
 
     # Relationships
-    __swingJoinCond = " & ".join(["(AttackType.encid == Swing.encid)",
-                                 " | ".join([
-                                     "(AttackType.attacker == Swing.attackerName)",
-                                     "(AttackType.victim == Swing.victimName)"
-                                 ]),
-                                 "(Swing.attacktype == AttackType.attacktype)"
-                               ])
+    __swingJoinCond = " & ".join(
+        ["(AttackType.encid == Swing.encid)",
+         " | ".join([
+             "(AttackType.attacker == Swing.attackerName)",
+             "(AttackType.victim == Swing.victimName)"
+             ]),
+         "(Swing.attacktype == AttackType.attacktype)"
+         ])
     swings = relationship('Swing',
                           backref='attackSummary',
                           primaryjoin=__swingJoinCond,
-                          foreign_keys='Swing.encid, Swing.attackerName, ' + \
+                          foreign_keys='Swing.encid, Swing.attackerName, ' +
                           'Swing.victimName, Swing.attacktype')
 
     # Methods

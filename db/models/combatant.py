@@ -1,10 +1,15 @@
 from .sacommon import Base
-from sqlalchemy import Column, BigInteger, String, CHAR, Integer, SMALLINT
+from sqlalchemy import Column, BigInteger, String, CHAR, Integer
 from sqlalchemy import TIMESTAMP, Numeric
 from sqlalchemy.dialects.postgresql import DOUBLE_PRECISION
 from sqlalchemy.orm import relationship
 
-__all__ = ['Combatant']
+__all__ = ['Combatant', '__author__', '__copyright__', '__license__',
+           '__version__']
+__author__ = "David Bliss"
+__copyright__ = "Copyright (C) 2017 David Bliss"
+__license__ = "Apache-2.0"
+__version__ = "1.0"
 
 
 class Combatant(Base):
@@ -43,14 +48,14 @@ class Combatant(Base):
     # Relationships
     attacks = relationship('Swing',
                            backref='attacker',
-                           primaryjoin="and_(Swing.encid==Combatant.encid," + \
-                                " Swing.attackerName==Combatant.name)",
+                           primaryjoin="and_(Swing.encid==Combatant.encid," +
+                           " Swing.attackerName==Combatant.name)",
                            foreign_keys='Swing.encid, Swing.attackerName')
 
     hits = relationship('Swing',
                         backref='victim',
-                        primaryjoin="and_(Swing.encid==Combatant.encid, " + \
-                             "Swing.victimName==Combatant.name)",
+                        primaryjoin="and_(Swing.encid==Combatant.encid, " +
+                        "Swing.victimName==Combatant.name)",
                         foreign_keys='Swing.encid, Swing.victimName')
 
     def __repr__(self):

@@ -1,10 +1,14 @@
 from .sacommon import Base
-from sqlalchemy import Column, BigInteger, String, CHAR, Integer, SMALLINT
-from sqlalchemy import TIMESTAMP, Numeric
-from sqlalchemy.dialects.postgresql import DOUBLE_PRECISION
+from sqlalchemy import Column, BigInteger, String, CHAR, TIMESTAMP, Integer
+from sqlalchemy import Numeric
 from sqlalchemy.orm import relationship
 
-__all__ = ['Encounter']
+__all__ = ['Encounter', '__author__', '__copyright__', '__license__',
+           '__version__']
+__author__ = "David Bliss"
+__copyright__ = "Copyright (C) 2017 David Bliss"
+__license__ = "Apache-2.0"
+__version__ = "1.0"
 
 
 class Encounter(Base):
