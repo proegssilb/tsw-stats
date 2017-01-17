@@ -1,17 +1,26 @@
-from .sacommon import Base
+"""A module for the Encounter class."""
+
+from .sacommon import OrmBase
 from sqlalchemy import Column, BigInteger, String, CHAR, TIMESTAMP, Integer
 from sqlalchemy import Numeric
 from sqlalchemy.orm import relationship
 
-__all__ = ['Encounter', '__author__', '__copyright__', '__license__',
-           '__version__']
+__all__ = ('Encounter', '__author__', '__copyright__', '__license__',
+           '__version__')
 __author__ = "David Bliss"
 __copyright__ = "Copyright (C) 2017 David Bliss"
 __license__ = "Apache-2.0"
 __version__ = "1.0"
 
 
-class Encounter(Base):
+class Encounter(OrmBase):
+    """A period of time and location where Combatants combatted.
+
+    An Encounter is a container for both Combatants, the characters, and
+    Swings, what the Combatants did. The main data it provides is where and
+    when, but there is some overview info available as well.
+    """
+
     __tablename__ = 'encounter_table'
 
     # Columns

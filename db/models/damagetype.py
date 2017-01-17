@@ -1,23 +1,32 @@
-from .sacommon import Base
+"""A module for the DamageType class."""
+
+from .sacommon import OrmBase
 from sqlalchemy import Column, BigInteger, String, CHAR, Integer
 from sqlalchemy import TIMESTAMP, Numeric
 from sqlalchemy.dialects.postgresql import DOUBLE_PRECISION
 # from sqlalchemy.orm import relationship # We'll be needing this soon.
 
-__all__ = ['DamageType', '__author__', '__copyright__', '__license__',
-           '__version__']
+__all__ = ('DamageType', '__author__', '__copyright__', '__license__',
+           '__version__')
 __author__ = "David Bliss"
 __copyright__ = "Copyright (C) 2017 David Bliss"
 __license__ = "Apache-2.0"
 __version__ = "1.0"
 
 
-class DamageType(Base):
+class DamageType(OrmBase):
+    """A class representing the DamageType table from ACT.
+
+    Damage Types collect Swings into broad categorizations, such as
+    "Outgoing damage". This is in contrast to Attack Types, which group Swings
+    into much narrower categorizations based on the actual ability used.
+    """
+
     __tablename__ = 'damagetype_table'
 
     # Columns
     encid = Column(CHAR(8))
-    combatant = Column(String(64))
+    combatantName = Column('combatant', String(64))
     grouping = Column(String(92))
     typeName = Column('type', String(64))
     starttime = Column(TIMESTAMP)
@@ -54,8 +63,8 @@ class DamageType(Base):
     # Relationships
     # attackTypeJoinCond = "and_({})".format(", ".join(
     #    "AttackType.encid==DamageType.encid",
-    #    "or_(DamageType.combatant==AttackType.attacker," + \
-    #        "DamageType.combatant==AttackType.victim)",
+    #    "or_(DamageType.combatantName==AttackType.attacker," + \
+    #        "DamageType.combatantName==AttackType.victim)",
     #    # TODO: DamageType.grouping contains AttackType.swingtype
     #    ))
     # attackTypes = relationship('AttackType',

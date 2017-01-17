@@ -1,18 +1,26 @@
-from .sacommon import Base
+"""A module for the Combatant class."""
+
+from .sacommon import OrmBase
 from sqlalchemy import Column, BigInteger, String, CHAR, Integer
 from sqlalchemy import TIMESTAMP, Numeric
 from sqlalchemy.dialects.postgresql import DOUBLE_PRECISION
 from sqlalchemy.orm import relationship
 
-__all__ = ['Combatant', '__author__', '__copyright__', '__license__',
-           '__version__']
+__all__ = ('Combatant', '__author__', '__copyright__', '__license__',
+           '__version__')
 __author__ = "David Bliss"
 __copyright__ = "Copyright (C) 2017 David Bliss"
 __license__ = "Apache-2.0"
 __version__ = "1.0"
 
 
-class Combatant(Base):
+class Combatant(OrmBase):
+    """Describes a participant in an Encounter.
+
+    Combatants can be either friend or foe, can be hit by a Swing, and can
+    attack other combatants, causing a Swing.
+    """
+
     __tablename__ = 'combatant_table'
 
     # Columns
@@ -46,6 +54,26 @@ class Combatant(Base):
     combatantid = Column(BigInteger, primary_key=True)
 
     # Relationships
+    attackSummaries = relationship(
+        'AttackType',
+        backref='attacker',
+        primaryjoin="and_({})".format(', '.join([
+            'Combatant.encid==AttackType.encid',
+            'Combatant.name==AttackType.attackerName'
+            ])),
+        foreign_keys='AttackType.encid, AttackType.attackerName'
+        )
+
+    hitSummaries = relationship(
+        'AttackType',
+        backref='attacker',
+        primaryjoin="and_({})".format(', '.join([
+            'Combatant.encid==AttackType.encid',
+            'Combatant.name==AttackType.victimName'
+            ])),
+        foreign_keys='AttackType.encid, AttackType.victimName'
+        )
+
     attacks = relationship('Swing',
                            backref='attacker',
                            primaryjoin="and_(Swing.encid==Combatant.encid," +
@@ -57,6 +85,16 @@ class Combatant(Base):
                         primaryjoin="and_(Swing.encid==Combatant.encid, " +
                         "Swing.victimName==Combatant.name)",
                         foreign_keys='Swing.encid, Swing.victimName')
+
+    swingCategories = relationship(
+        'DamageType',
+        backref='combatant',
+        primaryjoin="and_({})".format(', '.join([
+            'Combatant.encid==DamageType.encid',
+            'Combatant.name==DamageType.combatant'
+            ])),
+        foreign_keys='DamageType.encid, DamageType.combatant'
+    )
 
     def __repr__(self):
         return "<Combatant {!r} - {!r} -  Ally: {!r}>" \
