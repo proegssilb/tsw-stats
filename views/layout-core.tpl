@@ -27,6 +27,13 @@
           <a class="navbar-brand" href="/">TSW Combat Stats</a>
         </div>
         <!-- TODO: Allow more content to be added to navbar. Don't need it for index. -->
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="/encounter">Encounters</a></li>
+            <li><a href="/combatant">Combatants</a></li>
+            <li><a href="/ability">Abilities</a></li>
+          </ul>
+        </div>
       </div>
     </nav>
 

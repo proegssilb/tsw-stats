@@ -3,18 +3,27 @@
   "version": "1.0.0",
   "description": "A python-based web server providing statistics on TSW encounters logged to a database.",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "copy:bootstrap": "copyfiles -f node_modules/bootstrap/dist/css/bootstrap.min.* node_modules/bootstrap/dist/fonts/* node_modules/bootstrap/dist/js/bootstrap.min.js static/",
+    "copy:jquery": "copyfiles -f node_modules/jquery/dist/jquery.min.* static/",
+    "copy:custom": "copyfiles -f files/* style/* static/",
+    "copy": "npm run copy:jquery && npm run copy:bootstrap && npm run copy:custom",
+    "pysetup": "pip install -r requirements.txt",
+    "start": "concurrently \"npm run watch\" \"python main.py --envFile envfile.txt\"",
+    "watch": "npm-watch"
+  },
+  "watch": {
+    "copy:custom": {
+      "patterns": ["style"],
+      "extensions": "css",
+      "quiet": true
+    }
   },
   "author": "David Bliss",
   "license": "Apache-2.0",
   "devDependencies": {
-    "copyfiles": "^1.0.0"
-  },
-  "scripts": {
-    "copy:bootstrap": "copyfiles -f node_modules/bootstrap/dist/css/bootstrap.min.* node_modules/bootstrap/dist/fonts/* node_modules/bootstrap/dist/js/bootstrap.min.js static/",
-    "copy:jquery": "copyfiles -f node_modules/jquery/dist/jquery.min.* static/",
-    "copy:custom": "copyfiles -f files/* style/* static/",
-    "copy": "npm run copy:jquery && npm run copy:bootstrap && npm run copy:custom"
+    "concurrently": "^3.1.0",
+    "copyfiles": "^1.0.0",
+    "npm-watch": "^0.1.7"
   },
   "dependencies": {
     "bootstrap": "^3.3.7",
