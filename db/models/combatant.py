@@ -66,7 +66,7 @@ class Combatant(OrmBase):
 
     hitSummaries = relationship(
         'AttackType',
-        backref='attacker',
+        backref='victim',
         primaryjoin="and_({})".format(', '.join([
             'Combatant.encid==AttackType.encid',
             'Combatant.name==AttackType.victimName'
@@ -91,9 +91,9 @@ class Combatant(OrmBase):
         backref='combatant',
         primaryjoin="and_({})".format(', '.join([
             'Combatant.encid==DamageType.encid',
-            'Combatant.name==DamageType.combatant'
+            'Combatant.name==DamageType.combatantName'
             ])),
-        foreign_keys='DamageType.encid, DamageType.combatant'
+        foreign_keys='DamageType.encid, DamageType.combatantName'
     )
 
     def __repr__(self):

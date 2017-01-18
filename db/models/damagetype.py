@@ -75,5 +75,5 @@ class DamageType(OrmBase):
     # Methods
     def __repr__(self):
         return "<DamageType {!r} - {!r} - {!r}>".format(self.encounter,
-                                                        self.combatant,
+                                                        self.combatantName,
                                                         self.typeName)

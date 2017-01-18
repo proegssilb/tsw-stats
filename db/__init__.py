@@ -14,9 +14,11 @@ before sending the query to SQL.
 """
 
 from db.models import AttackType, Combatant, Encounter, DamageType, Swing
+from db.models import OrmBase
 
 __all__ = ('AttackType', 'Combatant', 'Encounter', 'DamageType', 'Swing',
-           '__author__', '__copyright__', '__license__', '__version__')
+           'OrmBase', '__author__', '__copyright__', '__license__',
+           '__version__')
 __author__ = "David Bliss"
 __copyright__ = "Copyright (C) 2017 David Bliss"
 __license__ = "Apache-2.0"

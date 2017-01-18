@@ -10,9 +10,11 @@ from db.models.combatant import Combatant
 from db.models.encounter import Encounter
 from db.models.damagetype import DamageType
 from db.models.swing import Swing
+from db.models.sacommon import OrmBase
 
 __all__ = ('AttackType', 'Combatant', 'Encounter', 'DamageType', 'Swing',
-           '__author__', '__copyright__', '__license__', '__version__')
+           'OrmBase', '__author__', '__copyright__', '__license__',
+           '__version__')
 __author__ = "David Bliss"
 __copyright__ = "Copyright (C) 2017 David Bliss"
 __license__ = "Apache-2.0"

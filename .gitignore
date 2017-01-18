@@ -90,3 +90,5 @@ ENV/
 
 # Custom
 node_modules/*
+static/*
+envfile.txt

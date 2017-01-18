@@ -5,7 +5,7 @@ Think of this module as the Controller in MVC, where the "db" module is the
 Model, and the Templates are the Controller.
 """
 
-from simple import index
+from pages.simple import index
 
 __all__ = (index,)
 __author__ = "David Bliss"

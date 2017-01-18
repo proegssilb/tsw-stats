@@ -10,6 +10,12 @@
   "devDependencies": {
     "copyfiles": "^1.0.0"
   },
+  "scripts": {
+    "copy:bootstrap": "copyfiles -f node_modules/bootstrap/dist/css/bootstrap.min.* node_modules/bootstrap/dist/fonts/* node_modules/bootstrap/dist/js/bootstrap.min.js static/",
+    "copy:jquery": "copyfiles -f node_modules/jquery/dist/jquery.min.* static/",
+    "copy:custom": "copyfiles -f files/* style/* static/",
+    "copy": "npm run copy:jquery && npm run copy:bootstrap && npm run copy:custom"
+  },
   "dependencies": {
     "bootstrap": "^3.3.7",
     "jquery": "^3.1.1"
