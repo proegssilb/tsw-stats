@@ -1,7 +1,7 @@
-    % rebase('layout-core.tpl', title='Index')
-    % recent = setdefault('recent', ())
-    % dmg = setdefault('dmg', ())
-    % hard = setdefault('hard', ())
+% recent = setdefault('recent', ())
+% dmg = setdefault('dmg', ())
+% hard = setdefault('hard', ())
+% include('head', title='Index')
 
     <div class="container-fluid"> <!-- Quick Encounter List -->
 
@@ -48,3 +48,6 @@
         <div class="col-md-1 spacer"></div>
       </div>
     </div> <!-- Quick Encounter List -->
+
+% include('js-bottom')
+% include('endhtml')

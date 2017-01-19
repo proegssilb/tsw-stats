@@ -40,3 +40,9 @@ def index(dbSession):
 def static(filename):
     """Serve static files."""
     return static_file(filename, root='./static')
+
+
+@route('/fonts/<filename>')
+def fonts(filename):
+    """Serve static files. Bootstrap looks for fonts here."""
+    return static_file(filename, root='./static')

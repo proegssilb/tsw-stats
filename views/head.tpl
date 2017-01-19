@@ -1,3 +1,7 @@
+% title = setdefault('title', 'Index')
+% description = setdefault('description', None)
+% author = setdefault('author', None)
+% extranav = setdefault('extranav', ())
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -7,11 +11,15 @@
     <!-- -->
     <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
-    <!-- TODO: Fill this in somehow. -->
-    <meta name="description" content="">
-    <meta name="author" content="">
     <link href="/static/bootstrap.min.css" rel="stylesheet">
     <link href="/static/custom.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/static/footable.bootstrap.min.css">
+    % if description is not None:
+    <meta name="description" content="{{description}}">
+    % end
+    % if author is not None:
+    <meta name="author" content="{{author}}">
+    % end
     <title>TSW Combat Stats - {{title}}</title>
   </head>
   <body>
@@ -36,10 +44,3 @@
         </div>
       </div>
     </nav>
-
-    {{!base}}
-    <!-- Apparently, placing scripts down here gets HTML onto the screen faster. -->
-    <script src="/static/jquery.min.js"></script>
-    <script src="/static/bootstrap.min.js"></script>
-  </body>
-</html>

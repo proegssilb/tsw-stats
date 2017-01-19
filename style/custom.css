@@ -16,6 +16,9 @@
 body {
   background-color: #6b6a6e;
   background-image: url("/static/concrete-wall-2.png");
+  /* Move down content because we have a fixed navbar that is 50px tall */
+  padding-top: 50px;
+  padding-bottom: 20px;
 }
 
 div .content-col {
@@ -40,11 +43,15 @@ div .content-col {
   font-size: 21px;
 }
 
-.jumbotron h1 {
+h1 {
   font-family: messy-graffiti;
   color: red;
+}
+
+.jumbotron h1 {
   font-size: 90px;
   margin-top: 0.5em;
+  color: red;
 }
 
 @media screen and (max-width: 992px) {
@@ -93,4 +100,31 @@ div .content-col {
 
 .navbar-inverse .navbar-brand {
   color: #c3c3c3;
+}
+
+.combatant {
+  display: block;
+  border: black thin solid;
+  padding: .3em;
+  text-align: center;
+}
+
+.combatant-name {
+  font-weight: bold;
+}
+
+.hcenter {
+  text-align: center;
+}
+
+.encounter-listing {
+  padding-left: 3em;
+  padding-right: 3em;
+  padding-top: 3em;
+  margin-bottom: 5em;
+}
+
+.combatant-list {
+    padding: 0;
+    list-style-type: none;
 }

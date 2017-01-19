@@ -5,15 +5,18 @@
   "scripts": {
     "copy:bootstrap": "copyfiles -f node_modules/bootstrap/dist/css/bootstrap.min.* node_modules/bootstrap/dist/fonts/* node_modules/bootstrap/dist/js/bootstrap.min.js static/",
     "copy:jquery": "copyfiles -f node_modules/jquery/dist/jquery.min.* static/",
+    "copy:moment": "copyfiles -f node_modules/moment/min/*.min.js static/",
     "copy:custom": "copyfiles -f files/* style/* static/",
-    "copy": "npm run copy:jquery && npm run copy:bootstrap && npm run copy:custom",
+    "copy": "npm run copy:jquery && npm run copy:bootstrap && npm run copy:custom && npm run copy:moment",
     "pysetup": "pip install -r requirements.txt",
-    "start": "concurrently \"npm run watch\" \"python main.py --envFile envfile.txt\"",
+    "start": "concurrently \"python -u main.py --envFile envfile.txt\" \"npm run watch\"",
     "watch": "npm-watch"
   },
   "watch": {
     "copy:custom": {
-      "patterns": ["style"],
+      "patterns": [
+        "style"
+      ],
       "extensions": "css",
       "quiet": true
     }
@@ -27,6 +30,9 @@
   },
   "dependencies": {
     "bootstrap": "^3.3.7",
-    "jquery": "^3.1.1"
+    "datatables.net": "^2.1.1",
+    "datatables.net-bs": "^2.1.1",
+    "jquery": "^3.1.1",
+    "moment": "^2.17.1"
   }
 }
