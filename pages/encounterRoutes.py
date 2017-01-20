@@ -8,6 +8,7 @@ from bottle import route, template
 from db import Encounter, Combatant, Swing
 from datetime import datetime, timedelta
 from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
+from sqlalchemy.dialects import postgresql
 
 __author__ = "David Bliss"
 __copyright__ = "Copyright (C) 2017 David Bliss"
@@ -47,26 +48,36 @@ def encounterInfo(encounterId, dbSession):
     topAlliedAttacks = dbSession.query(Swing).filter(
         Swing.encid == encounterId,
         Swing.swingtype == 1,
-        Swing.attackerName in (a.name for a in allies)
+        Swing.attackerName.in_(a.name for a in allies)
     ).order_by(Swing.damage.desc()).limit(10)
+    print(
+        str(topAlliedAttacks.statement.compile(dialect=postgresql.dialect()))
+        )
+    topAlliedAttacks = topAlliedAttacks.all()
     topAlliedHeals = dbSession.query(Swing).filter(
         Swing.encid == encounterId,
         Swing.swingtype == 3,
-        Swing.attackerName in (a.name for a in allies)
-    ).order_by(Swing.damage.desc()).limit(10)
+        Swing.attackerName.in_(a.name for a in allies)
+    ).order_by(Swing.damage.desc()).limit(10).all()
     topEnemyAttacks = dbSession.query(Swing).filter(
         Swing.encid == encounterId,
         Swing.swingtype == 1,
-        Swing.attackerName in (a.name for a in foes)
-    ).order_by(Swing.damage.desc()).limit(10)
+        Swing.attackerName.in_(a.name for a in foes)
+    ).order_by(Swing.damage.desc()).limit(10).all()
     topEnemyHeals = dbSession.query(Swing).filter(
         Swing.encid == encounterId,
         Swing.swingtype == 3,
-        Swing.attackerName in (a.name for a in foes)
-    ).order_by(Swing.damage.desc()).limit(10)
+        Swing.attackerName.in_(a.name for a in foes)
+    ).order_by(Swing.damage.desc()).limit(10).all()
     return template('encounterDetail', encounter=enc, allies=allies, foes=foes,
                     alliedHits=topAlliedAttacks, alliedHeals=topAlliedHeals,
                     foeHits=topEnemyAttacks, foeHeals=topEnemyHeals)
+
+
+@route('/encounter/<encounterId>/c/<combatantName>')
+def encounterCombatantPerformance(encounterId, combatantName, dbSession):
+    """For a given encounter, how did a particular character do in detail."""
+    return template('encounterCombatant')
 
 
 @route('/encounter/<encounterId>/d/<damageTypeId>')
@@ -78,7 +89,7 @@ def encounterDamageTypeInfo(encounterId, damageTypeId, dbSession):
 @route('/encounter/<encounterId>/a/<attackTypeId>')
 def encounterAttackTypeInfo(encounterId, attackTypeId, dbSession):
     """For an encounter, look at how a particular ability performed."""
-    pass
+    return template('encounterAttackType')
 
 
 @route('/data/encounter')

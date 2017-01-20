@@ -41,3 +41,11 @@ class Swing(OrmBase):
                                                          self.attackerName,
                                                          self.victimName,
                                                          self.damage)
+
+    def specialTags(self):
+        """Unify the odd crit/special dicotomy."""
+        if self.critical == 'T':
+            special = self.special.replace('none', '')
+            return ','.join(('Critical', special)).strip(',')
+        else:
+            return self.special
