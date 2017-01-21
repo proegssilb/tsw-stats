@@ -6,8 +6,9 @@
     "copy:bootstrap": "copyfiles -f node_modules/bootstrap/dist/css/bootstrap.min.* node_modules/bootstrap/dist/fonts/* node_modules/bootstrap/dist/js/bootstrap.min.js static/",
     "copy:jquery": "copyfiles -f node_modules/jquery/dist/jquery.min.* static/",
     "copy:moment": "copyfiles -f node_modules/moment/min/*.min.js static/",
+    "copy:datatables": "copyfiles -f node_modules/datatables.*/*/*.{css,js} static/",
     "copy:custom": "copyfiles -f files/* style/* static/",
-    "copy": "npm run copy:jquery && npm run copy:bootstrap && npm run copy:custom && npm run copy:moment",
+    "copy": "npm run copy:jquery && npm run copy:bootstrap && npm run copy:custom && npm run copy:moment && npm run copy:datatables",
     "pysetup": "pip install -r requirements.txt",
     "start": "concurrently \"python -u main.py --envFile envfile.txt\" \"npm run watch\"",
     "watch": "npm-watch"
@@ -32,6 +33,8 @@
     "bootstrap": "^3.3.7",
     "datatables.net": "^2.1.1",
     "datatables.net-bs": "^2.1.1",
+    "datatables.net-responsive": "^2.1.1",
+    "datatables.net-responsive-bs": "^2.1.1",
     "jquery": "^3.1.1",
     "moment": "^2.17.1"
   }

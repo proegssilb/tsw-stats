@@ -4,11 +4,12 @@ If the user wants to browse/search encounters, or look at the overview for a
 particular encounter, they'll probably want one of these routes.
 """
 
-from bottle import route, template
+from bottle import route, template, request
 from db import Encounter, Combatant, Swing
 from datetime import datetime, timedelta
 from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
 from sqlalchemy.dialects import postgresql
+from sqlalchemy.inspection import inspect
 
 __author__ = "David Bliss"
 __copyright__ = "Copyright (C) 2017 David Bliss"
@@ -19,11 +20,29 @@ __version__ = "1.0"
 @route('/encounter')
 def listEncounters(dbSession):
     """List all the encounters, possibly providing search functionality."""
-    # TODO: Pagination, sorting, custom date range.
+    # TODO: custom date range.
     recentEncounters = dbSession.query(Encounter) \
         .filter(Encounter.endtime > (datetime.now() - timedelta(days=33))) \
-        .order_by(Encounter.endtime.desc()).limit(15).all()
-    return template('encounterList', encounters=recentEncounters)
+        .order_by(Encounter.endtime.desc()).limit(25).all()
+    # TODO: Move below to template, e.g. objectList.tpl & encounterList.tpl
+    colConfig = [
+        {'attr': 'zone', 'name': 'Zone', 'class': 'all'},
+        {'attr': 'title', 'name': 'Encounter', 'class': 'all'},
+        {'attr': 'starttime', 'name': 'Start Time', 'class': 'all'},
+        {'attr': 'duration', 'name': 'Duration (s)', 'class': 'min-md'},
+        {'attr': 'damage', 'name': 'Total Damage',
+         'formatter': '{:,.2f}'.format, 'class': 'min-sm'},
+        {'attr': 'encdps', 'name': 'Encounter DPS',
+         'formatter': '{:,.2f}'.format, 'class': 'all'},
+        {'attr': 'kills', 'name': 'Kills', 'formatter': '{:,.0f}'.format,
+         'class': 'min-md'},
+        {'attr': 'deaths', 'name': 'Deaths', 'class': 'min-md'},
+        {'attr': 'aegisdmg', 'name': 'AEGIS Damage',
+         'formatter': '{:,.0f}'.format, 'class': 'min-lg'}
+    ]
+    return template('objectList', objects=recentEncounters, columns=colConfig,
+                    urlgen=(lambda obj: '/encounter/{}'.format(obj.encid)),
+                    urlcol='title', ajaxurl='/data/encounter')
 
 
 @route('/encounter/<encounterId>')
@@ -93,6 +112,38 @@ def encounterAttackTypeInfo(encounterId, attackTypeId, dbSession):
 
 
 @route('/data/encounter')
+@route('/data/encounter', method="POST")
 def queryEncounterTable(dbSession):
     """Return JSON describing the results of an arbitrary query/search."""
-    pass
+    # TODO: Move JSON parsing into generic route
+    # TODO: Move DB-specific stuff into db module
+    jsonD = request.json
+    draw = int(jsonD['draw'])
+    limit = int(jsonD['length'])
+    if limit > 500:
+        return {'draw': draw, 'error': 'Too many records requested.'}
+    offset = int(jsonD['start'])
+
+    # TODO: Figure out how to sort-of do search.
+    searchVal = jsonD['search']['value']  #noqa
+    searchIsRegex = jsonD['search']['regex']  #noqa
+
+    # Sorting
+    colList = [c['data'] for c in jsonD['columns']]
+    orderData = jsonD['order']
+    orderData = [(colList[o['column']], o['dir']) for o in orderData]
+    cols = inspect(Encounter).c
+    orderData = [cols[col].desc() if direct == 'desc'
+                 else cols[col] for (col, direct) in orderData]
+    # orderData now looks like [(attrName, direction), ...]
+    # TODO: Searching, as above.
+    objs = dbSession.query(Encounter).order_by(*orderData)
+    return {
+        'draw': draw,
+        'recordsFiltered': objs.count(),
+        'data': [{
+            col: inspect(o).attrs[col].value
+            for col in colList} for o in objs.offset(offset)
+                .limit(limit).all()],
+        'recordsTotal': dbSession.query(Encounter).count(),
+        }

@@ -11,9 +11,11 @@
     <!-- -->
     <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
-    <link href="/static/bootstrap.min.css" rel="stylesheet">
-    <link href="/static/custom.css" rel="stylesheet">
+    <link href="/static/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <link href="/static/custom.css" type="text/css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/static/footable.bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/static/responsive.bootstrap.css">
     % if description is not None:
     <meta name="description" content="{{description}}">
     % end
