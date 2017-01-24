@@ -32,7 +32,7 @@ def listEncounters(dbSession):
 @route('/encounter/<encounterId>')
 def encounterInfo(encounterId, dbSession):
     """Provide an overview of a given encounter."""
-    if (not encounterId.isalphanum()):
+    if (not encounterId.isalnum()):
         raise HTTPResponse(404)
     try:
         enc = dbSession.query(Encounter).filter(
