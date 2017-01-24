@@ -14,7 +14,7 @@ before sending the query to SQL.
 """
 
 from db.models import AttackType, Combatant, Encounter, DamageType, Swing
-from db.models import OrmBase
+from db.models import OrmBase, Character
 from db.dataRequest import DataRequest
 from db.genericQuery import getDataTable
 
@@ -24,4 +24,4 @@ __all__ = ('AttackType', 'Combatant', 'Encounter', 'DamageType', 'Swing',
 __author__ = "David Bliss"
 __copyright__ = "Copyright (C) 2017 David Bliss"
 __license__ = "Apache-2.0"
-__version__ = "1.0"
+__version__ = "1.1"
