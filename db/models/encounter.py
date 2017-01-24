@@ -27,7 +27,7 @@ class Encounter(OrmBase):
     encid = Column(CHAR(8))
     title = Column(String(64))
     starttime = Column(TIMESTAMP)
-    endtime = Column(TIMESTAMP)
+    endtime = Column(TIMESTAMP, index=True)
     duration = Column(Integer)
     damage = Column(BigInteger)
     encdps = Column(Numeric)
