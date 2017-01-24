@@ -66,7 +66,7 @@ def main(envFile=''):
     plugin = bsa.Plugin(
         engine,
         db.OrmBase.metadata,
-        keyword='dbSession',  # Argument name to views
+        keyword='dbSession'  # Argument name to views
     )
 
     install(plugin)
