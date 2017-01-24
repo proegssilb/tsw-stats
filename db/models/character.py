@@ -4,7 +4,7 @@ Essentially a view over Combatants, this provides a way for users to start
 looking at how a character's performance changes over time.
 """
 
-from sqlalchemy import select, func
+from sqlalchemy import select, func, Index
 from sqlalchemy.orm import relationship
 from .combatant import Combatant
 from .view import create_mat_view, MaterializedView
@@ -32,6 +32,7 @@ class Character(MaterializedView):
             func.sum(Combatant.duration).label('seenTime'),
             func.sum(Combatant.damage).label('damage'),
             func.sum(Combatant.healed).label('healed'),
+            func.sum(Combatant.damagetaken).label('damageTaken'),
             func.sum(Combatant.kills).label('kills')
         ]).group_by(Combatant.name).order_by(Combatant.name)
     )
@@ -71,4 +72,4 @@ class Character(MaterializedView):
         return "<Character {!r}>".format(self.name)
 
 
-Character.name.primary_key = True
+Index('idx_character_name', Character.name, unique=True)
