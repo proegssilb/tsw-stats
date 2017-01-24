@@ -14,7 +14,7 @@ from db.models.sacommon import OrmBase
 
 __all__ = ('AttackType', 'Combatant', 'Encounter', 'DamageType', 'Swing',
            'OrmBase', '__author__', '__copyright__', '__license__',
-           '__version__')
+           '__version__', 'Character')
 __author__ = "David Bliss"
 __copyright__ = "Copyright (C) 2017 David Bliss"
 __license__ = "Apache-2.0"

@@ -74,17 +74,17 @@ class Combatant(OrmBase):
         foreign_keys='AttackType.encid, AttackType.victimName'
         )
 
-    attacks = relationship('Swing',
-                           backref='attacker',
-                           primaryjoin="and_(Swing.encid==Combatant.encid," +
-                           " Swing.attackerName==Combatant.name)",
-                           foreign_keys='Swing.encid, Swing.attackerName')
+    outSwings = relationship('Swing',
+                             backref='attacker',
+                             primaryjoin="and_(Swing.encid==Combatant.encid," +
+                             " Swing.attackerName==Combatant.name)",
+                             foreign_keys='Swing.encid, Swing.attackerName')
 
-    hits = relationship('Swing',
-                        backref='victim',
-                        primaryjoin="and_(Swing.encid==Combatant.encid, " +
-                        "Swing.victimName==Combatant.name)",
-                        foreign_keys='Swing.encid, Swing.victimName')
+    inSwings = relationship('Swing',
+                            backref='victim',
+                            primaryjoin="and_(Swing.encid==Combatant.encid, " +
+                            "Swing.victimName==Combatant.name)",
+                            foreign_keys='Swing.encid, Swing.victimName')
 
     swingCategories = relationship(
         'DamageType',

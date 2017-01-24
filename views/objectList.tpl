@@ -3,8 +3,10 @@
 % columns = setdefault('columns', ())
 % urlgen = setdefault('urlgen', None)
 % urlcol = setdefault('urlcol', '')
+% title = setdefault('title', 'Object List')
+% defaultOrder = setdefault('defaultOrder', None)
 % from sqlalchemy.inspection import inspect
-% include('head', title='Index')
+% include('head', title=title)
 
 <div class="container-fluid">
   <div class="row">
@@ -55,9 +57,16 @@ $(document).ready( function () {
       },
       "columns": [
         % for col in columns:
-        { "data": "{{col['attr']}}" },
+        {
+        % for k, v in col.items():
+          {{!'"{}": {},'.format(k[3:], v) if k.startswith('js_') else ''}}
+        % end
+      },
         % end
       ],
+      % if defaultOrder is not None:
+      "order": {{!defaultOrder}},
+      % end
       "responsive": {
         "breakpoints": [
           { "name": "xs", "width": 767 },

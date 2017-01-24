@@ -15,10 +15,12 @@ before sending the query to SQL.
 
 from db.models import AttackType, Combatant, Encounter, DamageType, Swing
 from db.models import OrmBase
+from db.dataRequest import DataRequest
+from db.genericQuery import getDataTable
 
 __all__ = ('AttackType', 'Combatant', 'Encounter', 'DamageType', 'Swing',
            'OrmBase', '__author__', '__copyright__', '__license__',
-           '__version__')
+           '__version__', 'DataRequest', 'getDataTable', 'Character')
 __author__ = "David Bliss"
 __copyright__ = "Copyright (C) 2017 David Bliss"
 __license__ = "Apache-2.0"

@@ -10,7 +10,8 @@
     "copy:custom": "copyfiles -f files/* style/* static/",
     "copy": "npm run copy:jquery && npm run copy:bootstrap && npm run copy:custom && npm run copy:moment && npm run copy:datatables",
     "pysetup": "pip install -r requirements.txt",
-    "start": "concurrently \"python -u main.py --envFile envfile.txt\" \"npm run watch\"",
+    "start:python": "python -u main.py --envFile envFile.txt",
+    "start": "npm run watch",
     "watch": "npm-watch"
   },
   "watch": {
@@ -19,6 +20,13 @@
         "style"
       ],
       "extensions": "css",
+      "quiet": true
+    },
+    "start:python": {
+      "patterns": [
+        "."
+      ],
+      "extensions": "py",
       "quiet": true
     }
   },
@@ -35,6 +43,7 @@
     "datatables.net-bs": "^2.1.1",
     "datatables.net-responsive": "^2.1.1",
     "datatables.net-responsive-bs": "^2.1.1",
+    "dygraphs": "^2.0.0",
     "jquery": "^3.1.1",
     "moment": "^2.17.1"
   }
