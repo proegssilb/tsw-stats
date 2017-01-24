@@ -24,9 +24,9 @@ class Combatant(OrmBase):
     __tablename__ = 'combatant_table'
 
     # Columns
-    encid = Column(CHAR(8))
+    encid = Column(CHAR(8), index=True)
     ally = Column(CHAR(1))
-    name = Column(String(64))
+    name = Column(String(64), index=True)
     starttime = Column(TIMESTAMP)
     endtime = Column(TIMESTAMP)
     duration = Column(Integer)

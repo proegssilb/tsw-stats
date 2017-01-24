@@ -25,8 +25,8 @@ class DamageType(OrmBase):
     __tablename__ = 'damagetype_table'
 
     # Columns
-    encid = Column(CHAR(8))
-    combatantName = Column('combatant', String(64))
+    encid = Column(CHAR(8), index=True)
+    combatantName = Column('combatant', String(64), index=True)
     grouping = Column(String(92))
     typeName = Column('type', String(64))
     starttime = Column(TIMESTAMP)

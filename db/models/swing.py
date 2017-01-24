@@ -21,13 +21,13 @@ class Swing(OrmBase):
     __tablename__ = 'swing_table'
 
     # Columns
-    encid = Column(CHAR(8))
-    stime = Column(TIMESTAMP)
-    attackerName = Column('attacker', String(64))
+    encid = Column(CHAR(8), index=True)
+    stime = Column(TIMESTAMP, index=True)
+    attackerName = Column('attacker', String(64), index=True)
     swingtype = Column(SMALLINT)
     attacktype = Column(String(64))
     damagetype = Column(String(64))
-    victimName = Column('victim', String(64))
+    victimName = Column('victim', String(64), index=True)
     damage = Column(BigInteger)
     damagestring = Column(String(128))
     critical = Column(CHAR(1))

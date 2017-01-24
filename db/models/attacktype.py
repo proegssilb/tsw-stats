@@ -26,12 +26,12 @@ class AttackType(OrmBase):
     __tablename__ = 'attacktype_table'
 
     # Columns
-    encid = Column(CHAR(8))
+    encid = Column(CHAR(8), index=True)
     attackerName = Column('attacker', String(64))
     victimName = Column('victim', String(64))
     swingtype = Column(SMALLINT)
     attacktype = Column('type', String(64))
-    starttime = Column(TIMESTAMP)
+    starttime = Column(TIMESTAMP, index=True)
     endtime = Column(TIMESTAMP)
     duration = Column(Integer)
     damage = Column(BigInteger)
