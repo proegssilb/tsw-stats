@@ -32,19 +32,19 @@
 
   <div class="row">
     <div class="col-xs-12 col-md-6">
-      <p>Allied Stacked Line Damage Over Time Graph goes here.</p>
+      <div class="graph" id="allyDPS"></div>
     </div>
     <div class="col-xs-12 col-md-6">
-      <p>Allied Stacked Line Heal Over Time Graph goes here.</p>
+      <div class="graph" id="allyHPS"></div>
     </div>
   </div>
 
   <div class="row">
     <div class="col-xs-12 col-md-6">
-      <p>Foe Stacked Line Damage Over Time Graph goes here.</p>
+      <div class="graph" id="foeDPS"></div>
     </div>
     <div class="col-xs-12 col-md-6">
-      <p>Foe Stacked Line Heal Over Time Graph goes here.</p>
+      <div class="graph" id="foeHPS"></div>
     </div>
   </div>
 
@@ -221,6 +221,46 @@
 <script type="text/javascript">
 $(document).ready( function () {
     $('#encounterSummary').footable();
+    new Dygraph(
+      document.getElementById("allyDPS"),
+      "/encounter/{{encounter.encid}}/graph?allied=T&attackTypeId=1",
+      {
+        connectSeparatedPoints: true,
+        stackedGraph: true,
+        stackedGraphNaNFill: "inside",
+        title: "Allied Damage Over Time"
+      }
+    );
+    new Dygraph(
+      document.getElementById("foeDPS"),
+      "/encounter/{{encounter.encid}}/graph?allied=F&attackTypeId=1",
+      {
+        connectSeparatedPoints: true,
+        stackedGraph: true,
+        stackedGraphNaNFill: "inside",
+        title: "Foe Damage Over Time"
+      }
+    );
+    new Dygraph(
+      document.getElementById("allyHPS"),
+      "/encounter/{{encounter.encid}}/graph?allied=T&attackTypeId=3",
+      {
+        connectSeparatedPoints: true,
+        stackedGraph: true,
+        stackedGraphNaNFill: "inside",
+        title: "Allied Healing Over Time"
+      }
+    );
+    new Dygraph(
+      document.getElementById("foeHPS"),
+      "/encounter/{{encounter.encid}}/graph?allied=F&attackTypeId=3",
+      {
+        connectSeparatedPoints: true,
+        stackedGraph: true,
+        stackedGraphNaNFill: "inside",
+        title: "Foe Healing Over Time"
+      }
+    );
 } );
 </script>
 

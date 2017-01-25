@@ -17,10 +17,13 @@ from db.models import AttackType, Combatant, Encounter, DamageType, Swing
 from db.models import OrmBase, Character
 from db.dataRequest import DataRequest
 from db.genericQuery import getDataTable
+from db.crosstab import crosstab
+
 
 __all__ = ('AttackType', 'Combatant', 'Encounter', 'DamageType', 'Swing',
            'OrmBase', '__author__', '__copyright__', '__license__',
-           '__version__', 'DataRequest', 'getDataTable', 'Character')
+           '__version__', 'DataRequest', 'getDataTable', 'Character',
+           'crosstab')
 __author__ = "David Bliss"
 __copyright__ = "Copyright (C) 2017 David Bliss"
 __license__ = "Apache-2.0"
