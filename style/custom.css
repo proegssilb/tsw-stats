@@ -128,3 +128,12 @@ h1 {
     padding: 0;
     list-style-type: none;
 }
+
+.graph {
+  height: 35em;
+  /*position: absolute;
+  display: block;
+  left: 0em;
+  right: 0em;
+  top: 0em;*/
+}

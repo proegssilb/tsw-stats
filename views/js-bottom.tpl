@@ -7,3 +7,4 @@
     <script type="text/javascript" charset="utf8" src="/static/dataTables.bootstrap.js"></script>
     <script type="text/javascript" charset="utf8" src="/static/dataTables.responsive.js"></script>
     <script type="text/javascript" charset="utf8" src="/static/responsive.bootstrap.js"></script>
+    <script type="text/javascript" charset="utf8" src="/static/dygraph.min.js"></script>

@@ -16,6 +16,7 @@
     <link rel="stylesheet" type="text/css" href="/static/footable.bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/static/dataTables.bootstrap.css">
     <link rel="stylesheet" type="text/css" href="/static/responsive.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/static/dygraph.min.css">
     % if description is not None:
     <meta name="description" content="{{description}}">
     % end
