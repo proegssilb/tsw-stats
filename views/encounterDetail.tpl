@@ -220,7 +220,7 @@
 
 <script type="text/javascript">
 $(document).ready( function () {
-    $('#encounterSummary').DataTable();
+    $('#encounterSummary').DataTable({ "order": [[4, "desc"]] });
     new Dygraph(
       document.getElementById("allyDPS"),
       "/encounter/{{encounter.encid}}/graph?allied=T&attackTypeId=1",
