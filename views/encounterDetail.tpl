@@ -117,20 +117,20 @@
       <thead>
         <tr>
           <th>Attacker</th>
-          <th>Victim</th>
           <th>Ability Name</th>
           <th>Damage</th>
           <th>Modifiers</th>
+          <th>Victim</th>
         </tr>
       </thead>
       <tbody>
         % for hit in alliedHits:
         <tr>
           <td><a href="/encounter/{{hit.encid}}/c/{{hit.attackerName}}">{{hit.attackerName}}</a></td>
-          <td><a href="/encounter/{{hit.encid}}/c/{{hit.victimName}}">{{hit.victimName}}</a></td>
           <td><a href="/encounter/{{hit.encid}}/a/{{hit.attackSummary.attackTypeId}}">{{hit.attacktype}}</a></td>
           <td>{{hit.damage}}</td>
           <td>{{hit.specialTags()}}</td>
+          <td><a href="/encounter/{{hit.encid}}/c/{{hit.victimName}}">{{hit.victimName}}</a></td>
         </tr>
         % end
       </tbody>
@@ -142,20 +142,20 @@
       <thead>
         <tr>
           <th>Healer</th>
-          <th>Recipient</th>
           <th>Ability Name</th>
           <th>Healing</th>
           <th>Modifiers</th>
+          <th>Recipient</th>
         </tr>
       </thead>
       <tbody>
         % for hit in alliedHeals:
         <tr>
           <td><a href="/encounter/{{hit.encid}}/c/{{hit.attackerName}}">{{hit.attackerName}}</a></td>
-          <td><a href="/encounter/{{hit.encid}}/c/{{hit.victimName}}">{{hit.victimName}}</a></td>
           <td><a href="/encounter/{{hit.encid}}/a/{{hit.attackSummary.attackTypeId}}">{{hit.attacktype}}</a></td>
           <td>{{hit.damage}}</td>
           <td>{{hit.specialTags()}}</td>
+          <td><a href="/encounter/{{hit.encid}}/c/{{hit.victimName}}">{{hit.victimName}}</a></td>
         </tr>
         % end
       </tbody>
@@ -169,20 +169,20 @@
     <table id="topFoeHits" class="table table-hover">
       <thead>
         <th>Attacker</th>
-        <th>Victim</th>
         <th>Ability Name</th>
         <th>Damage</th>
         <th>Modifiers</th>
+        <th>Victim</th>
       </thead>
       <tbody>
         <tbody>
           % for hit in foeHits:
           <tr>
             <td><a href="/encounter/{{hit.encid}}/c/{{hit.attackerName}}">{{hit.attackerName}}</a></td>
-            <td><a href="/encounter/{{hit.encid}}/c/{{hit.victimName}}">{{hit.victimName}}</a></td>
             <td><a href="/encounter/{{hit.encid}}/a/{{hit.attackSummary.attackTypeId}}">{{hit.attacktype}}</a></td>
             <td>{{hit.damage}}</td>
             <td>{{hit.specialTags()}}</td>
+            <td><a href="/encounter/{{hit.encid}}/c/{{hit.victimName}}">{{hit.victimName}}</a></td>
           </tr>
           % end
         </tbody>
@@ -194,20 +194,20 @@
     <table id="topFoeHeals" class="table table-hover">
       <thead>
         <th>Healer</th>
-        <th>Recipient</th>
         <th>Ability Name</th>
         <th>Healing</th>
         <th>Modifiers</th>
+        <th>Recipient</th>
       </thead>
       <tbody>
         <tbody>
           % for hit in foeHeals:
           <tr>
             <td><a href="/encounter/{{hit.encid}}/c/{{hit.attackerName}}">{{hit.attackerName}}</a></td>
-            <td><a href="/encounter/{{hit.encid}}/c/{{hit.victimName}}">{{hit.victimName}}</a></td>
             <td><a href="/encounter/{{hit.encid}}/a/{{hit.attackSummary.attackTypeId}}">{{hit.attacktype}}</a></td>
             <td>{{hit.damage}}</td>
             <td>{{hit.specialTags()}}</td>
+            <td><a href="/encounter/{{hit.encid}}/c/{{hit.victimName}}">{{hit.victimName}}</a></td>
           </tr>
           % end
         </tbody>
