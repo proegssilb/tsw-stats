@@ -21,7 +21,7 @@ __version__ = "1.0"
 def index(dbSession):
     """The index route."""
     recentEncounters = dbSession.query(Encounter) \
-        .filter(Encounter.endtime > (datetime.now() - timedelta(days=1))) \
+        .filter(Encounter.endtime > (datetime.now() - timedelta(days=7))) \
         .order_by(Encounter.endtime.desc()).limit(15).all()
 
     topDamageEncounters = dbSession.query(Encounter) \

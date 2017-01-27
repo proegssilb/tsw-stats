@@ -5,10 +5,11 @@ particular encounter, they'll probably want one of these routes.
 """
 
 from bottle import route, template, request, HTTPError
-from db import Encounter, Combatant, Swing, DataRequest, getDataTable
+from db import Encounter, Combatant, Swing, DataRequest, getDataTable, crosstab
 from datetime import datetime, timedelta
 from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
 from sqlalchemy.dialects import postgresql
+from sqlalchemy import func, BigInteger, Column, TIMESTAMP
 
 __author__ = "David Bliss"
 __copyright__ = "Copyright (C) 2017 David Bliss"
@@ -121,6 +122,22 @@ def encounterGraph(encounterId, dbSession):
     allied = 'T' if allied else 'F'
     # END VALIDATION
 
+    swingData = dbSession.query(
+        Swing.stime,
+        Swing.attackerName,
+        func.sum(Swing.damage)
+    ).join(Combatant.outSwings).filter(
+        Swing.encid == encounterId,
+        Swing.swingtype == attackTypeId,
+        Combatant.ally == allied
+    ).group_by(
+        Swing.stime,
+        Swing.attackerName
+    ).order_by(
+        Swing.stime,
+        Swing.attackerName
+    )
+
     combatants = dbSession.query(Combatant.name).filter(
         Combatant.encid == encounterId,
         Combatant.ally == allied
@@ -129,9 +146,10 @@ def encounterGraph(encounterId, dbSession):
         ).order_by(Combatant.name)
     combatantNameList = tuple(n for (n,) in combatants.all())
 
+    """
     # WARNING: SQL INJECTION RISK FOLLOWS
     # The alternative is roundabout, slow, ugly, and broken.
-    qRaw = """SELECT *
+    qRaw = '''SELECT *
     FROM crosstab('SELECT sw.stime, sw.attacker, SUM(sw.damage)
                     FROM swing_table sw
                         JOIN combatant_table cm
@@ -155,10 +173,27 @@ def encounterGraph(encounterId, dbSession):
       AS (
             stime timestamp,
             {2}
-        )"""
+        )''
     asList = ',\n'.join(('"{}" bigint'.format(c) for c in combatantNameList))
     timelineQuery = qRaw.format(encounterId, attackTypeId, asList, allied)
     yield 'Swing Time,' + ','.join(combatantNameList) + '\n'
     yield from (','.join(str('NaN' if v is None else v) for (k, v) in
                          row.items())
                 + '\n' for row in dbSession.execute(timelineQuery))
+    """
+
+    combatantCols = tuple(Column(cn, BigInteger) for cn in combatantNameList)
+
+    ctFrom = crosstab(swingData,
+                      (Column('stime', TIMESTAMP),) + combatantCols,
+                      categories=combatants,
+                      auto_order=False
+                      )
+
+    timelineQuery = dbSession.query(
+        Column('stime', TIMESTAMP),
+        *combatantCols
+    ).select_from(ctFrom)
+    yield 'Swing Time,' + ','.join(combatantNameList) + '\n'
+    yield from (','.join(str('NaN' if v is None else v) for v in
+                         row) + '\n' for row in timelineQuery)
