@@ -13,5 +13,5 @@ setup(name='tsw-stats',
       packages=find_packages(),
       py_modules=['main'],
       install_requires=['bottle', 'sqlalchemy', 'bottle-sqlalchemy',
-                        'psycopg2', 'argh']
+                        'psycopg2', 'argh', 'alembic']
       )

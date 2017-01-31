@@ -2,6 +2,7 @@
 
 from .sacommon import OrmBase
 from sqlalchemy import Column, BigInteger, String, CHAR, SMALLINT, TIMESTAMP
+from sqlalchemy import Index
 
 __all__ = ('Swing', '__author__', '__copyright__', '__license__',
            '__version__')
@@ -21,13 +22,13 @@ class Swing(OrmBase):
     __tablename__ = 'swing_table'
 
     # Columns
-    encid = Column(CHAR(8), index=True)
+    encid = Column(CHAR(8))
     stime = Column(TIMESTAMP, index=True)
-    attackerName = Column('attacker', String(64), index=True)
+    attackerName = Column('attacker', String(64))
     swingtype = Column(SMALLINT)
     attacktype = Column(String(64))
     damagetype = Column(String(64))
-    victimName = Column('victim', String(64), index=True)
+    victimName = Column('victim', String(64))
     damage = Column(BigInteger)
     damagestring = Column(String(128))
     critical = Column(CHAR(1))
@@ -49,3 +50,5 @@ class Swing(OrmBase):
             return ','.join(('Critical', special)).strip(',')
         else:
             return self.special
+
+Index('idx_swing_encid_attacker', Swing.encid, Swing.attackerName)

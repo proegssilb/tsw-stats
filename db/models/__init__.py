@@ -12,10 +12,11 @@ from db.models.damagetype import DamageType
 from db.models.swing import Swing
 from db.models.sacommon import OrmBase
 from db.models.character import Character
+from db.models.current import Current
 
 __all__ = ('AttackType', 'Combatant', 'Encounter', 'DamageType', 'Swing',
            'OrmBase', '__author__', '__copyright__', '__license__',
-           '__version__', 'Character')
+           '__version__', 'Character', 'Current')
 __author__ = "David Bliss"
 __copyright__ = "Copyright (C) 2017 David Bliss"
 __license__ = "Apache-2.0"

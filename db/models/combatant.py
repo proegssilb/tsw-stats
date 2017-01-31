@@ -44,6 +44,7 @@ class Combatant(OrmBase):
     crithits = Column(Integer)
     blocked = Column(Integer)
     misses = Column(Integer)
+    swings = Column(Integer)
     healstaken = Column(BigInteger)
     damagetaken = Column(BigInteger)
     deaths = Column(Integer)

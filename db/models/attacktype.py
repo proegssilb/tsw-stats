@@ -72,7 +72,7 @@ class AttackType(OrmBase):
              ]),
          "(Swing.attacktype == AttackType.attacktype)"
          ])
-    swings = relationship('Swing',
+    attacks = relationship('Swing',
                           backref='attackSummary',
                           primaryjoin=__swingJoinCond,
                           foreign_keys='Swing.encid, Swing.attackerName, ' +
